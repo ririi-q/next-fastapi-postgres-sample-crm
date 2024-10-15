@@ -3,4 +3,4 @@ FROM node:20
 WORKDIR /workspace/frontend
 COPY . .
 RUN npm install
-CMD ["npm", "start"]
+CMD ["npm", "run", "dev"]
