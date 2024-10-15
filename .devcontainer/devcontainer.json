@@ -1,0 +1,38 @@
+{
+	"name": "Ubuntu",
+	"dockerComposeFile": "compose.yml",
+	"service": "app",
+	"workspaceFolder": "/workspace",
+	"postCreateCommand": ".devcontainer/postCreateCommand.sh",
+	"postStartCommand": "echo 'Container started' && date",
+	"forwardPorts": [3000,5000,5432],
+	"features": {
+		"ghcr.io/devcontainers/features/docker-in-docker:2": {}
+	},
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"ms-python.python",
+				"dbaeumer.vscode-eslint",
+				"esbenp.prettier-vscode",
+				"hashicorp.terraform",
+				"ms-azuretools.vscode-docker",
+				"ms-vscode-remote.remote-containers",
+				"charliermarsh.ruff",
+				"ms-python.vscode-pylance",
+				"dsznajder.es7-react-js-snippets",
+				"bradlc.vscode-tailwindcss",
+				"formulahendry.auto-rename-tag",
+				"christian-kohler.path-intellisense",
+				"eamodio.gitlens",
+				"github.copilot",
+				"ms-vsliveshare.vsliveshare",
+				"redhat.vscode-yaml",
+				"hashicorp.terraform",
+				"gruntwork.terragrunt",
+				"terraform.tflint"
+			]
+		}
+	},
+	"remoteUser": "vscode"
+}

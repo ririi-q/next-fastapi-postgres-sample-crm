@@ -1,0 +1,41 @@
+# docker/stg/compose.yml
+version: '3.8'
+services:
+  backend:
+    build:
+      context: ../../backend
+      dockerfile: Dockerfile.stg
+    env_file:
+      - ../../.env/.env.stg
+    volumes:
+      - ../../backend:/workspace/backend:cached
+    ports:
+      - "3000:3000"
+    privileged: true
+  frontend:
+    build:
+      context: ../../frontend
+      dockerfile: Dockerfile.stg
+    env_file:
+      - ../../.env/.env.stg
+    volumes:
+      - ../../frontend:/workspace/frontend:cached
+    ports:
+      - "5000:5000"
+    privileged: true
+  db:
+    build:
+      context: ../../db
+      dockerfile: Dockerfile
+    env_file:
+      - ../../.env/.env.stg
+    ports:
+      - "5432:5432"
+  nginx:
+    image: nginx:latest
+    volumes:
+      - ../../nginx/default.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - "80:80"
+volumes:
+  postgres-data:
