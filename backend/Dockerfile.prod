@@ -1,6 +1,10 @@
 # backend/Dockerfile.prod
 FROM python:3.12
 WORKDIR /workspace/backend
+
+# poetryのインストール
+RUN pip install poetry
+
 COPY . .
-RUN pip install -r requirements.txt
-CMD ["python", "app.py"]
+RUN poetry install
+CMD ["poetry", "run", "python", "app.py"]
