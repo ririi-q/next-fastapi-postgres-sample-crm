@@ -1,45 +1,30 @@
-FROM mcr.microsoft.com/devcontainers/base:jammy
+FROM python:3.12-slim-bullseye
 
-# システムの更新とツールのインストール
+# Update and install necessary dependencies
 RUN apt-get update && apt-get install -y \
-    docker.io \
-    docker-compose \
-    wget \
-    unzip \
     curl \
-    software-properties-common
+    gnupg \
+    && rm -rf /var/lib/apt/lists/*
 
-# AWS CLIのインストール
-RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" \
-    && unzip awscliv2.zip \
-    && ./aws/install \
-    && rm -rf aws awscliv2.zip
+# Install Poetry
+RUN pip install poetry
 
-# Node.jsのインストール
+# Install Node.js
 RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
+    && apt-get update \
     && apt-get install -y nodejs \
     && npm install -g npm@latest
 
-# Pythonのインストール
-RUN add-apt-repository ppa:deadsnakes/ppa \
+# Create vscode user and group
+RUN groupadd --gid 1000 vscode \
+    && useradd --uid 1000 --gid 1000 -m vscode \
     && apt-get update \
-    && apt-get install -y python3.12 python3.12-venv python3-pip \
-    && update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.12 1 \
-    && update-alternatives --set python3 /usr/bin/python3.12
+    && apt-get install -y sudo \
+    && echo vscode ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/vscode \
+    && chmod 0440 /etc/sudoers.d/vscode
 
-# Terraformのインストール
-RUN wget https://releases.hashicorp.com/terraform/1.9.7/terraform_1.9.7_linux_amd64.zip \
-    && unzip terraform_1.9.7_linux_amd64.zip \
-    && mv terraform /usr/local/bin/ \
-    && rm terraform_1.9.7_linux_amd64.zip
-
-# TFLintのインストール
-RUN curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
-
-# Terragruntのインストール
-RUN wget https://github.com/gruntwork-io/terragrunt/releases/download/v0.52.0/terragrunt_linux_amd64 \
-    && mv terragrunt_linux_amd64 /usr/local/bin/terragrunt \
-    && chmod +x /usr/local/bin/terragrunt
-
-# キャッシュのクリーンアップ
+# Clean up
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Set the default user to vscode
+USER vscode

@@ -2,9 +2,6 @@
 
 echo "postCreateCommand.sh start"
 
-# install poetry
-curl -sSL https://install.python-poetry.org | python3 -
-
 cd backend
 
 # Poetryの設定
@@ -46,10 +43,5 @@ print_version "Poetry" "poetry --version | cut -d' ' -f3"
 
 print_version "Node.js" "node --version"
 print_version "npm" "npm --version"
-print_version "Next.js" "npx next --version"
-print_version "React" "npm react --version"
-
-print_version "Terraform" "terraform --version | head -n1 | cut -d'v' -f2"
-print_version "AWS CLI" "aws --version | cut -d' ' -f1 | cut -d'/' -f2"
 
 echo "postCreateCommand.sh end"
