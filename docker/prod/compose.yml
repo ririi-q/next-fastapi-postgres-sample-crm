@@ -1,5 +1,4 @@
 # docker/prod/compose.yml
-version: '3.8'
 services:
   backend:
     build:
@@ -10,7 +9,7 @@ services:
     volumes:
       - ../../backend:/workspace/backend:cached
     ports:
-      - "3000:3000"
+      - "5000:5000"
     privileged: true
   frontend:
     build:
@@ -21,7 +20,7 @@ services:
     volumes:
       - ../../frontend:/workspace/frontend:cached
     ports:
-      - "5000:5000"
+      - "3000:3000"
     privileged: true
   db:
     build:
