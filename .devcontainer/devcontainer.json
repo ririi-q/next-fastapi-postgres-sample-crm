@@ -1,10 +1,9 @@
 {
-	"name": "Ubuntu",
+	"name": "NextFastApp",
 	"dockerComposeFile": "compose.yml",
 	"service": "app",
 	"workspaceFolder": "/workspace",
 	"postCreateCommand": ".devcontainer/postCreateCommand.sh",
-	"postStartCommand": ".devcontainer/postStartCommand.sh",
 	"forwardPorts": [3000,5000,5432],
 	"features": {
 		"ghcr.io/devcontainers/features/docker-in-docker:2": {}

@@ -11,7 +11,9 @@ services:
     ports:
       - "5000:5000"
     privileged: true
-
+    depends_on:
+      - db
+      
   frontend:
     build:
       context: ../../frontend
