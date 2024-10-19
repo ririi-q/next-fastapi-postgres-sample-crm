@@ -1,29 +1,6 @@
 #!/bin/bash
 
-echo "postCreateCommand.sh start"
-
-cd backend
-
-chmod +x migrate.sh
-
-# Poetryの設定
-poetry config virtualenvs.in-project true
-if [ -f "pyproject.toml" ]; then
-    echo "Pythonの依存関係をインストール中..."
-    poetry install --no-root
-fi
-
-cd ..
-
-
-cd frontend
-
-if [ -f "package.json" ]; then
-    echo "node_modulesをインストール中..."
-    npm install
-fi
-
-cd ..
+echo "postStartCommand.sh start"
 
 # バージョン情報出力関数
 print_version() {
@@ -48,4 +25,4 @@ print_version "Poetry" "poetry --version | cut -d' ' -f3"
 print_version "Node.js" "node --version"
 print_version "npm" "npm --version"
 
-echo "postCreateCommand.sh end"
+echo "postStartCommand.sh end"

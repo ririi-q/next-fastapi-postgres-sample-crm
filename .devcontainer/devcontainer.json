@@ -4,7 +4,7 @@
 	"service": "app",
 	"workspaceFolder": "/workspace",
 	"postCreateCommand": ".devcontainer/postCreateCommand.sh",
-	"postStartCommand": "echo 'Container started' && date",
+	"postStartCommand": ".devcontainer/postStartCommand.sh",
 	"forwardPorts": [3000,5000,5432],
 	"features": {
 		"ghcr.io/devcontainers/features/docker-in-docker:2": {}
@@ -12,6 +12,8 @@
 	"customizations": {
 		"vscode": {
 			"extensions": [
+				"github.copilot",
+				"github.copilot-chat",
 				"ms-python.python",
 				"dbaeumer.vscode-eslint",
 				"esbenp.prettier-vscode",
@@ -25,7 +27,6 @@
 				"formulahendry.auto-rename-tag",
 				"christian-kohler.path-intellisense",
 				"eamodio.gitlens",
-				"github.copilot",
 				"ms-vsliveshare.vsliveshare",
 				"redhat.vscode-yaml",
 				"hashicorp.terraform",
