@@ -19,6 +19,7 @@ docker-compose -f docker/dev/compose.yml exec backend /bin/bash
 
 ## フロントエンドのコンテナに入る
 docker-compose -f docker/dev/compose.yml exec frontend /bin/bash
+npx shadcn-ui@latest init
 
 ## データベースのコンテナに入る
 docker-compose -f docker/dev/compose.yml exec db /bin/bash
@@ -43,7 +44,7 @@ DELETE FROM users WHERE name = 'John Doe';
 ## Dev環境でのマイグレーション
 docker-compose -f docker/dev/compose.yml exec backend /bin/bash
 poetry run alembic init alembic #マイグレーションファイルを作成
-poetry run alembic revision --autogenerate -m "描画的なマイグレーション名" #マイグレーションファイルを作成
+poetry run alembic revision --autogenerate -m "migration name" #マイグレーションファイルを作成
 poetry run alembic upgrade head #マイグレーションを適用
 poetry run alembic downgrade -1 #前のマイグレーションにダウングレード
 poetry run alembic downgrade <revision> #指定したマイグレーション番号にダウングレード
@@ -52,9 +53,34 @@ poetry run alembic history #マイグレーションの履歴
 poetry run alembic heads #次のマイグレーション番号
 poetry run alembic upgrade head --sql > migration.sql
 
+## マイグレーションファイルの整理（本番稼働前はマイグレーションファイルは基本１つでよい）
+docker-compose -f docker/dev/compose.yml exec backend /bin/bash
+poetry run alembic downgrade -1 または、poetry run alembic downgrade <revision>
+もどしたリビジョンまでのマイグレーションファイルを削除
+poetry run alembic revision --autogenerate -m "INITIAL"
+poetry run alembic upgrade head
+
+## マイグレーションファイルのキャッシュ削除
+sudo rm -rf backend/alembic/versions/__pycache__
 
 ## FastApi Docs
 http://localhost:5000/docs
 
 ## Frontend
 http://localhost:3000/
+
+
+## マイグレーションファイルの削除
+sudo rm -rf backend/alembic/versions/__pycache__
+
+## 不要なイメージを削除
+docker system prune
+
+## 不要なイメージを削除
+docker system prune -a
+
+## 不要なイメージを削除
+docker system prune -a --volumes
+
+## フロントのUIコンポーネントを追加
+npx shadcn-ui@latest add 
