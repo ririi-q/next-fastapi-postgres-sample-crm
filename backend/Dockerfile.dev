@@ -11,13 +11,10 @@ COPY pyproject.toml poetry.lock* ./
 RUN poetry config virtualenvs.create false \
   && poetry install --no-interaction --no-ansi
 
-# 全てのコードをコピー（migrate.shを含む）
+# 全てのコードをコピー
 COPY . .
 
 RUN poetry install --no-root
 
-# マイグレーションスクリプトに実行権限を付与
-RUN chmod +x migrate.sh
-
 # Flaskアプリケーションの実行
-CMD ./migrate.sh && poetry run uvicorn app.main:app --host 0.0.0.0 --port 5000 --reload
+CMD poetry run uvicorn app.main:app --host 0.0.0.0 --port 5000 --reload

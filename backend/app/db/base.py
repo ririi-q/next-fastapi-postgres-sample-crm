@@ -1,7 +1,6 @@
-from sqlalchemy.ext.declarative import declarative_base
-
-Base = declarative_base()
-
-# 以下の行を追加して、すべてのモデルをインポートします
+# DBのモデルをインポート
+from app.db.base_class import Base, BaseWithTimestamps
+from app.models.company import Company
 from app.models.user import User
-# 他のモデルがある場合は、ここに追加してください
+
+__all__ = ["Base", "BaseWithTimestamps", "User", "Company"]
