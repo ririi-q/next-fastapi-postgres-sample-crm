@@ -4,8 +4,6 @@ echo "postCreateCommand.sh start"
 
 cd backend
 
-chmod +x migrate.sh
-
 # Poetryの設定
 poetry config virtualenvs.in-project true
 if [ -f "pyproject.toml" ]; then
@@ -47,5 +45,7 @@ print_version "Poetry" "poetry --version | cut -d' ' -f3"
 
 print_version "Node.js" "node --version"
 print_version "npm" "npm --version"
+
+
 
 echo "postCreateCommand.sh end"

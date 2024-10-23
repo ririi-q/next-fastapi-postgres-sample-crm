@@ -22,7 +22,7 @@ RUN groupadd --gid 1000 vscode \
     && apt-get install -y sudo \
     && echo vscode ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/vscode \
     && chmod 0440 /etc/sudoers.d/vscode
-    
+
 # Clean up
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 

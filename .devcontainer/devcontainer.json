@@ -30,7 +30,9 @@
 				"redhat.vscode-yaml",
 				"hashicorp.terraform",
 				"gruntwork.terragrunt",
-				"terraform.tflint"
+				"terraform.tflint",
+				"mtxr.sqltools",
+				"mtxr.sqltools-driver-pg"
 			]
 		}
 	},
