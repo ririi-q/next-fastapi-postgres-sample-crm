@@ -38,7 +38,7 @@ export default function LoginPage() {
 
   const handleGoogleLogin = async () => {
     try {
-      window.location.href = 'http://localhost:5000/oauth2/google-oauth2/authorize';
+      window.location.href = 'http://localhost:5000/api/v1/auth/google-oauth2/authorize';
     } catch (error) {
       console.error('Googleログインエラー:', error);
       setError('Googleログイン中にエラーが発生しました。');
