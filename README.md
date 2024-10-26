@@ -84,3 +84,16 @@ docker system prune -a --volumes
 
 ## フロントのUIコンポーネントを追加
 npx shadcn-ui@latest add 
+
+
+
+### アーキテクチャ
+```mermaid
+graph LR
+    A[GitHub] --> B[GitHub Actions]
+    B --> C[ECR]
+    B --> D[Amplify]
+    C --> E[ECS Fargate]
+    E --> F[RDS]
+    D --> G[CloudFront]
+```
