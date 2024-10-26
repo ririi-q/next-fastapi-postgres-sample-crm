@@ -97,3 +97,40 @@ graph LR
     E --> F[RDS]
     D --> G[CloudFront]
 ```
+
+```mermaid
+graph TB
+    subgraph "AWS Cloud"
+        subgraph "Public Subnet"
+            ALB[Application Load Balancer]
+            NAT[NAT Gateway]
+        end
+        
+        subgraph "Private Subnet"
+            ECS[ECS Fargate]
+            RDS[(Amazon RDS)]
+        end
+        
+        subgraph "Frontend"
+            Amplify[AWS Amplify]
+            CF[CloudFront]
+        end
+        
+        GitHub[GitHub] --> |CI/CD| Amplify
+        GitHub --> |CI/CD| ECR[Amazon ECR]
+        ECR --> ECS
+        
+        CF --> Amplify
+        Internet((Internet)) --> CF
+        Internet --> ALB
+        ALB --> ECS
+        ECS --> RDS
+        ECS --> NAT
+        NAT --> Internet
+    end
+
+classDef aws fill:#FF9900,stroke:#232F3E,stroke-width:2px;
+classDef service fill:#3F8624,stroke:#232F3E,stroke-width:2px;
+class ALB,NAT,ECS,RDS,Amplify,CF,ECR aws;
+class GitHub service;
+```
